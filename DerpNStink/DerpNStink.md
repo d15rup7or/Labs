@@ -570,3 +570,7 @@ Wykorzystajmy te dane aby zalogować się do wordpressa. Tam w zakładce **Posts
 Trzecią flagę znajdziemy w katalogu Desktop użytkownika unclestinky
 `flag3(07f62b021771d3cf67e2e1faf18769cc5e5c119ad7d4d1847a11e11d6d5a7ecb)`
 
+
+
+`flag4(49dca65f362fee401292ed7ada96f96295eab1e589c52e4e66bf4aedda715fdd)`
+
