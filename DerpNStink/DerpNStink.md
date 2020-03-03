@@ -17,7 +17,7 @@ Na starcie odpalamy narzędzie **nmap** i przystępujemy do poszukania dostępny
 
 `nmap -sT -sV -A 192.168.56.0/24`
 ```
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-02-20 10:27 CET
+Starting Nmap 7.80 ( https://nmap.org )
 Nmap scan report for 192.168.56.100
 Host is up (0.00018s latency).
 All 65535 scanned ports on 192.168.56.100 are filtered
@@ -189,7 +189,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 [+] User Agent:     gobuster/3.0.1
 [+] Timeout:        10s
 ===============================================================
-2020/02/25 17:20:09 Starting gobuster
+Starting gobuster
 ===============================================================
 /weblog (Status: 301)
 /php (Status: 301)
@@ -199,7 +199,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /temporary (Status: 301)
 /server-status (Status: 403)
 ===============================================================
-2020/02/20 10:31:05 Finished                                                                                                                              
+Finished                                                                                                                              
 =============================================================== 
 ```
 
