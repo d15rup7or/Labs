@@ -81,3 +81,4 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 256 IP addresses (3 hosts up) scanned in 221.33 seconds
            Raw packets sent: 508 (14.224KB) | Rcvd: 2 (56B)
 ```
+## 2. Reconnaissance phase
