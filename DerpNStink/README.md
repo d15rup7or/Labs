@@ -76,7 +76,7 @@ Zacznijmy od ostatniej z nich. Wydaje się być dobra na początek. Odpalmy prze
 
 Jak widać to zwykły landing page, czyli nic szczególnego. A co jeśli zajrzymy do kodu źródłowego strony **(Ctrl+U)**?
 
-![viewsource](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/viewsource.png)
+![viewsource.png](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/viewsource.png)
 
 Brawo! Mamy naszą pierwszą flagę :)
 `<--flag1(52E37291AEDF6A46D7D0BB8A6312F4F9F1AA4975C248C3F0E008CBA09D6E9166) -->`
@@ -239,7 +239,7 @@ Dodatkowo wpscan odsłonił przed nami dwóch użytkowników
 ```
 
 Pozostaje nam wykorzystać tę informację i spróbować się zalogować
-![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/wp-login-page.png)
+![wp-login-page.png](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/wp-login-page.png)
 
 Zobaczmy czy zadziała z tym hasłem
 `login:admin password:admin`
@@ -250,7 +250,7 @@ Tym razem się udało. W rezultacie trafiamy do panelu wordpressa jako użytkown
 ## 2. Reverse shell
 
 Kolejnym krokiem będzie uploadowanie [PHP Reverse Shell](http://pentestmonkey.net/tools/web-shells/php-reverse-shell) (Kali Linux ma go w katalogu `usr/share/webshells/php`) (wcześniej zmieniamy w nim parametry $ip na adres maszyny wirtualnej oraz $port) 
-![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/shell-upload.png)
+![shell-upload.png](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/shell-upload.png)
 
 Odpalamy netcat i ustawiamy go tak żeby nasłuchiwał na uprzednio wybranym porcie. Dla nas będzie to port **4443**: <br>
 `nc -nlvp 4443`
