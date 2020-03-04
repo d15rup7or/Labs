@@ -69,7 +69,7 @@ Nmap done: 256 IP addresses (3 hosts up) scanned in 27.38 seconds
 ```
 ---
 ### Kod HTML
-Nmap odkrył przed nami dostępne i działające usługi **FTP, SSH i HTTP.** \
+Nmap odkrył przed nami dostępne i działające usługi **FTP, SSH i HTTP.** <br>
 Zacznijmy od ostatniej z nich. Wydaje się być dobra na początek. Odpalmy przeglądarke i zobaczmy czy czeka tam na nas jakaś  niespodzianka.
 
 ![derpnstink.png](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/derpnstink.png)
