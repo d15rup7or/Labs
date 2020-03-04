@@ -245,7 +245,7 @@ Zobaczmy czy zadziała z tym hasłem
 `login:admin password:admin`
 
 Tym razem się udało. W rezultacie trafiamy do panelu wordpressa jako użytkownik z ograniczonymi uprawnieniami. 
-![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/slideshow.png)
+![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/slideshow.png)
 
 ## 2. Reverse shell
 
@@ -594,15 +594,15 @@ Działa! Czas się porozglądać!
 Wejdźmy do katalogu `home` i poszukajmy plików, które mogą zawierać na przykład dalsze wskazówki.
 Trzecią flagę znajdziemy w katalogu `Desktop` w pliku `flag.txt`
 `flag3(07f62b021771d3cf67e2e1faf18769cc5e5c119ad7d4d1847a11e11d6d5a7ecb)`
-![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/flag3.png)
+![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/flag3.png)
 Idąc dalej, w katalogu `network-logs` odkrywamy zapis konwersacji pomiędzy użytkownikami:
-![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/conversation.png)
+![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/conversation.png)
 Dowiadujemy się, że user `stinky` może coś wiedzieć na temat hasła usera `mrderp` \
 Szukamy teraz odpowiedniego pliku z rozszerzeniem `.pcap` \
 Namierzamy go w katalogu `Documents`
 Przyda nam się dostęp do sniffera `tcpdump` żeby zajrzeć do środka pliku \
 `tcpdump -nt -r derpissues.pcap -A | grep -P 'pwd='`
-![](https://github.com/d15rup7or/Labs/blob/master/DerpNStink/img/pcap-tcpdump.png)
+![](https://github.com/d15rup7or/Labs/master/DerpNStink/img/pcap-tcpdump.png)
 Przy użyciu `grep` błyskawicznie przejęliśmy hasło usera `mrderp` \
 `derpderpderpderpderpderpderp`
 
