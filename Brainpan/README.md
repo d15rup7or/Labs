@@ -84,4 +84,4 @@ s.send(payload+"\r\n")
 print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
 s.close
 ```
-!()[https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/sending-A's.png]
+![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/sending-A's.png)
