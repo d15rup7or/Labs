@@ -65,6 +65,8 @@ IP ID Sequence Generation: All zeros
 ```
 ![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/nmap-scan)
 
+`nikto -h 192.168.56.106`
 
+`192.168.56.106:10000/bin/`
 
 ## 2.
