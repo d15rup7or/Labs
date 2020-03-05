@@ -63,5 +63,8 @@ Network Distance: 0 hops
 TCP Sequence Prediction: Difficulty=258 (Good luck!)
 IP ID Sequence Generation: All zeros
 ```
+![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/nmap-scan)
+
+
 
 ## 2.
