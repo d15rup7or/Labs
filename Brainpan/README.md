@@ -71,4 +71,15 @@ IP ID Sequence Generation: All zeros
 
 `192.168.56.106:10000/bin/`
 
-## 2.
+## 2. Fuzzing
+
+```
+import socket
+
+for i in range(30):
+s.connect = socket.socket ( socket.AF_INET, socket.SOCK_STREAM ) 
+payloaod = ("A"*100)
+s.send(payload+"\r\n")
+print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
+s.close
+```
