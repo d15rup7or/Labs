@@ -67,6 +67,8 @@ IP ID Sequence Generation: All zeros
 
 `nikto -h 192.168.56.106`
 
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nikto.png)
+
 `192.168.56.106:10000/bin/`
 
 ## 2.
