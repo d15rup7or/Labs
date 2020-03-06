@@ -71,6 +71,11 @@ IP ID Sequence Generation: All zeros
 
 `192.168.56.106:10000/bin/`
 
+Let's download the .exe file and have the look with `strings`
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/strings.png)
+
+
 ## 2. Fuzzing
 
 ```
