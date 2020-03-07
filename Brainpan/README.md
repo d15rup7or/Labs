@@ -105,7 +105,7 @@ for i in range(30):
 Here, the Windows IP address given by DHCP is '192.168.56.105'. Use the script above and see what the program spits out.
 It turns out that the overflow occurs around(/with circa) 900 A's.
 
-![sending A's](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/sending-A's.png)
+![sending A's](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/generating-shellcode.png?raw=true)
 
 Stack addresses EAX EIP ESP
 
