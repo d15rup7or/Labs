@@ -66,7 +66,6 @@ IP ID Sequence Generation: All zeros
 ![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/nmap-scan)
 
 `nikto -h 192.168.56.106`
-
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nikto.png)
 
 `192.168.56.106:10000/bin/`
@@ -99,8 +98,6 @@ Turns out that the overflow occurs around the length 900 A's.
 
 
 **In the first round** we are going to see whether it's vulnerable to buffer overflow. We can write a simple fuzzer in python 
-
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sending-A's.png?raw=true)
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sending-buffer-of-A's.png)
 
