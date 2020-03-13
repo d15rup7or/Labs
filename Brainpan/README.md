@@ -187,6 +187,8 @@ s.send(payload)
 
 ![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/generating-shellcode.png?raw=true)
 
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/root%40brainpan.png)
+
 ## Conclusion and benefits
 It was an opportunity to improve
 - scripting skills
