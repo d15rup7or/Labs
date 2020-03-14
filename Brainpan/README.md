@@ -75,6 +75,7 @@ IP ID Sequence Generation: All zeros
 Let's run the `strings` command to view the hardcoded strings within the binary
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/strings.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/strings-output.png)
 
 Time for launching Windows 32-bit VM and some scripting work
 
