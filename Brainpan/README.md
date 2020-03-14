@@ -63,10 +63,12 @@ Network Distance: 0 hops
 TCP Sequence Prediction: Difficulty=258 (Good luck!)
 IP ID Sequence Generation: All zeros
 ```
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nmap-scan.png)
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/initial-scan.png)
 
 `nikto -h 192.168.56.106`
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nikto.png)
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nikto-output.png)
 
 `192.168.56.106:10000/bin/`
 
