@@ -64,17 +64,16 @@ TCP Sequence Prediction: Difficulty=258 (Good luck!)
 IP ID Sequence Generation: All zeros
 ```
 
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/initial-scan.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/welcome-to-brainpan.png)
 
 `nikto -h 192.168.56.106`
 
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nikto-output.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nikto-scan-output.png)
 
 `192.168.56.106:10000/bin/`
 
 Let's run the `strings` command to view the hardcoded strings within the binary
 
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/strings.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/strings-output.png)
 
 Time for launching Windows 32-bit VM and some scripting work
