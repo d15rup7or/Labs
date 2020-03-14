@@ -1,5 +1,5 @@
 # Brainpan 1 Walkthrough
-Following is the outcome of my hacking handiwork
+Following is the outcome of my hacking handiwork and obtaining root
 
 ## 1. Initial Scan
 
@@ -68,40 +68,58 @@ IP ID Sequence Generation: All zeros
 
 `nikto -h 192.168.56.106`
 
+* custom application on port 9999
+* python SimpleHTTPServer on port 10000
+
+**Nikto** might be helpful at this moment
+
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nikto-scan-output.png)
+
+It tells us about the `bin` directory
+Let's browse the website and look inside it
 
 `192.168.56.106:10000/bin/`
 
-Let's run the `strings` command to view the hardcoded strings within the binary
+A suspicious app binary is waiting there for us - maybe it's the key for solving this puzzle? 
+
+We won't know unless we check it out. Let's run the `strings` command to view the hardcoded strings within the binary
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/strings-output.png)
 
-Time for launching Windows 32-bit VM and some scripting work
+The `shitstorm` line instantly draws the attention - it may be a password to a certain service!
+We are gonna give it a try:
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/192.168.56.106:9999.png)
+
+It looks useless. I also used telnet but still nothing, the application responded with the following: Connection closed by foreign host. \
+
+The app behaves as if it were a kind of server. After opening the socket it waits for connection, checks the input and then closes.
 
 ## 2. Fuzzing
 
-Time to make sure everything's ready and send brainpan.exe to the guest OS (setting up SimpleHTTPServer on the host may come in handy)
+Preinstalled Immunity Debugger on Windows 32-bit VM may come in handy here.
 
-In the next step we're gonna send a long, repeated string of A's with this simple fuzzer:
+**In the first round** we're gonna send a long, repeated string of A's with a simple fuzzer visible below. By running the script the terminal will tell us whether providing sufficiently long input can crash the app:
 
 ```
 import socket
 
 for i in range(30):
   s = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
-  s.connect(("192.168.56.105",9999)
+  s.connect(("192.168.56.105",9999) # mind to change the IP address :-)
   payloaod = int(i)*("A"*100)
   s.send(payload+"\r\n")
   print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
   s.close()
 ```
-Here, the Windows machine IP address given by DHCP is '192.168.56.105' (mind to change it). We use the script visible above and see what it spits out.
-Turns out that the overflow occurs around the length 900 A's.
 
-
-**In the first round** we are going to see whether it's vulnerable to buffer overflow. We can write a simple fuzzer in python 
+We receive the following output"
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/python-fuzzer-output.png)
+
+Turns out that the overflow occurs around the length 900 A's. 
+
+There is a method `get_reply`
 
 Stack addresses EAX EIP ESP
 
@@ -109,9 +127,7 @@ Stack addresses EAX EIP ESP
 
 Generated pattern:
 
-
-
-![sending A's](https://github.com/d15rup7or/Labs/blob/master/Brainpan/img/pattern_create.png?raw=true)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/ruby-pattern-create.png)
 
 Metasploit generator is a handy tool, though it is abysmally slow
 
@@ -119,7 +135,7 @@ Stack addresses EAX EIP ESP
 
 `ruby /usr/share/metasploit-framwerok/tools/exploit/pattern_create.rb -l 900`
 
-!(pattern_create)[]
+!()[]
 
 And we insert the output from above into the fuzzing script
 
