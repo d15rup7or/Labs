@@ -113,22 +113,21 @@ for i in range(30):
   s.close()
 ```
 
-We receive the following output:
+Running the code provides us with the following output:
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/python-fuzzer-output.png)
 
 Turns out that the overflow occurs around the length of 900 A's.
 
-In Immunity we notice that the EIP has been overwritten with 41414141 (hexadecimal represenation of four A's). It also says that there is an *Access violation* while executing the code at address 41414141.
+In Immunity we notice that the EIP has been overwritten with 41414141 (hexadecimal representation of four A's). It also says that an *Access violation* occurs while executing the code at address 41414141.
 
-Once the vulnerability is known and it's obvious that we've gained control over replacing the EIP address, it brings us closer to our goal.
+As the vulnerability is known and it's obvious that we've gained control over replacing the EIP address, it brings us closer to our goal.
 
-In the next step we're gonna utilize a Metasploit feature and create a pattern consisting of a set of unique, three-character substrings. 
-
+Firstly, we need to find the offset that could control the EIP. We're gonna utilize a Metasploit feature and create a pattern consisting of a set of unique, three-character substrings: 
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/pattern-create-ruby.png)
 
-It spits out a random set that perfectly fits our payload parameter.
+It spits out a unique and random set that perfectly fits to our payload.
 ```
 import socket
 
@@ -143,50 +142,24 @@ print s.recv(1024)
 
 s.close()
 ```
-Executing the script causes Access violation as seen below:
+Execution of the script causes *Access violation* again and leads to crash:
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/overwriting-eip.png)
 
-The current pattern inside the EIP is 35724134
+As you can see above, the pattern inside the EIP is **35724134**
 
-As we've got the pattern located inside the instruction pointer (EIP), let's determine the offset (aka exact location of the address). which will allow us to point to malicious shellcode 
+After having the pattern located inside the instruction pointer (EIP), let's determine the offset (known as the exact location of the address) and make it point to our malicious shellcode.
+
+`ruby pattern_offset.rb -q 35724134`
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/pattern-offset-ruby.png)
 
+Exactly 524 bytes of junk is needed to get us to the EIP.
 
+Now our payload will look like this: `"A"*524+"B"*4+"C"*(900-524-4)`
 
-Metasploit generator is a handy tool, though it is abysmally slow
+Our shellcode will be put just behind the 4 bytes that control EIP (at offset 524)
 
-Stack addresses EAX EIP ESP
-
-
-
-After executing it (.py script) we see the following output containing `Access violation`:
-
-The EIP was overwritten with .....
-
-`ruby pattern_offset.rb 35724134`
-
-Setting JMP ESP address and shellcode
-
-
-!(pattern_create)[]
-
-
-And we insert the output from above into the fuzzing script
-
-`aaa`
-
-After executing it (.py script) we see the following output containing `Access violation`:
-
-The EIP was overwritten with .....
-
-`ruby pattern_offset.rb -q 35724134`
-|
-|
-`[*] Exact match at offset 524`
-
-Exactly 524 bytes of 'crash' is needed in order to get us to EIP. Time to edit our fuzzer and see if we can overwrite eip with some B's (/x42). 
 
 Setting JMP ESP address and shellcode
 
