@@ -91,15 +91,15 @@ We are gonna give it a try:
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/192.168.56.106:9999.png)
 
-It looks useless. I also used telnet but still nothing, the application responded with the following: Connection closed by foreign host. \
+It looks useless. I also used telnet but still nothing, the application responded with the following: Connection closed by foreign host.
 
-The app behaves as if it were a kind of server. After opening the socket it waits for connection, checks the input and then closes.
+The app behaves as if it were a kind of a server. After opening the socket it waits for connection, checks the input and then closes.
 
 ## 2. Fuzzing
 
 Preinstalled Immunity Debugger on Windows 32-bit VM may come in handy here.
 
-**In the first round** we're gonna send a long, repeated string of A's with a simple fuzzer visible below. By running the script the terminal will tell us whether providing sufficiently long input can crash the app:
+**In the first round** we're gonna send a long, repeated string of A's with a simple fuzzer visible below. By running the script, the terminal will tell us whether providing sufficiently long input can crash the app:
 
 ```
 import socket
@@ -113,33 +113,53 @@ for i in range(30):
   s.close()
 ```
 
-We receive the following output"
+We receive the following output:
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/python-fuzzer-output.png)
 
-Turns out that the overflow occurs around the length 900 A's. 
+Turns out that the overflow occurs around the length of 900 A's.
 
-There is a method `get_reply`
+In Immunity we notice that the EIP has been overwritten with 41414141 (hexadecimal represenation of four A's). It also says that there is an *Access violation* while executing the code at address 41414141.
 
-Stack addresses EAX EIP ESP
+Once the vulnerability is known and it's obvious that we've gained control over replacing the EIP address, it brings us closer to our goal.
 
-`ruby /usr/share/metasploit-framwerok/tools/exploit/pattern_create.rb -l 900`
+In the next step we're gonna utilize a Metasploit feature and create a pattern consisting of a set of unique, three-character substrings. 
 
-Generated pattern:
 
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/ruby-pattern-create.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/pattern-create-ruby.png)
+
+It spits out a random set that perfectly fits our payload parameter.
+```
+import socket
+
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.connect(('192.168.56.105',9999))
+
+payload = ("Put the pattern here")
+
+print s.recv(1024)
+s.send(payload)
+print s.recv(1024)
+
+s.close()
+```
+Executing the script causes Access violation as seen below:
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/overwriting-eip.png)
+
+The current pattern inside the EIP is 35724134
+
+As we've got the pattern located inside the instruction pointer (EIP), let's determine the offset (aka exact location of the address). which will allow us to point to malicious shellcode 
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/pattern-offset-ruby.png)
+
+
 
 Metasploit generator is a handy tool, though it is abysmally slow
 
 Stack addresses EAX EIP ESP
 
-`ruby /usr/share/metasploit-framwerok/tools/exploit/pattern_create.rb -l 900`
 
-!()[]
-
-And we insert the output from above into the fuzzing script
-
-`Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9...`
 
 After executing it (.py script) we see the following output containing `Access violation`:
 
