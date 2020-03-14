@@ -102,7 +102,7 @@ Turns out that the overflow occurs around the length 900 A's.
 
 **In the first round** we are going to see whether it's vulnerable to buffer overflow. We can write a simple fuzzer in python 
 
-![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sending-buffer-of-A's.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/python-fuzzer-output.png)
 
 Stack addresses EAX EIP ESP
 
