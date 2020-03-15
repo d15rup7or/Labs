@@ -225,19 +225,20 @@ It was really confusing at first. Notice the CMD 1.4.1 label? This is because th
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/msfvenom-linux-x86-exec-shell.png)
 
-Time to swap the shellcode in our python script and set a netcat once again.
+...and swap the shellcode in our python script after setting up the netcat once again.
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/netcat-and-python-shell.png)
 
-We're back in the game!
+Good, we're back in the game!
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/further-enumeration-shell.png)
+
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-group.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-passwd.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/ls-la-sudoers.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sudo-home-anansi-bin-anansi-util.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sudo-home-anansi-bin-anansi-util-etc-sudoers.png)
- 
+ And finally!
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/root%40brainpan.png)
 
 ## Conclusion and benefits
