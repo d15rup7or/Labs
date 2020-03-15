@@ -1,5 +1,5 @@
 # Brainpan 1 Walkthrough
-Following is the outcome of my hacking handiwork and obtaining root. Withour further delay let's start the party.
+Following is the outcome of my hacking handiwork and obtaining root. Withour further delay, let's start the party.
 
 ## 1. Initial Scan
 
@@ -240,9 +240,9 @@ Good, we're back in the game!
 Spawning a tty shell -> check `id` -> list the directory `ls -la` -> `cat checksrv.sh` -> and check the local users
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/further-enumeration-shell.png)
-`cat group` -> `ls` -> `cd /opt` -> `cd /etc`
+`cat group`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-group.png)
-`cat passwd`
+`cat passwd` -> `ls` -> `cd /opt` -> `cd /etc`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-passwd.png)
 `ls -la sudoers`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/ls-la-sudoers.png)
