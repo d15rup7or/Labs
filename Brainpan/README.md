@@ -235,6 +235,8 @@ We're back in the game!
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-group.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-passwd.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/ls-la-sudoers.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sudo-home-anansi-bin-anansi-util.png)
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sudo-home-anansi-bin-anansi-util-etc-sudoers.png)
  
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/root%40brainpan.png)
 
