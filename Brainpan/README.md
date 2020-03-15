@@ -1,5 +1,5 @@
 # Brainpan 1 Walkthrough
-Following is the outcome of my hacking handiwork and obtaining root
+Following is the outcome of my hacking handiwork and obtaining root. Withour further delay let's start the party.
 
 ## 1. Initial Scan
 
@@ -68,14 +68,14 @@ IP ID Sequence Generation: All zeros
 
 `nikto -h 192.168.56.106`
 
-* custom application running in wine on port 9999
+* custom application running in Wine on port 9999
 * python SimpleHTTPServer on port 10000
 
 **Nikto** might be helpful at this moment
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/nikto-scan-output.png)
 
-It tells us about the `bin` directory
+It tells us about the mysterious `bin` directory
 Let's browse the website and look inside it
 
 `192.168.56.106:10000/bin/`
@@ -95,7 +95,7 @@ It looks useless. I also used telnet but still nothing, the application responde
 
 The app behaves as if it were a kind of a server. After opening the socket it waits for connection, checks the input and then closes.
 
-## 2. Fuzzing
+## 2. Some fuzzing & exploitation
 
 Preinstalled Immunity Debugger on Windows 32-bit VM may come in handy here.
 
@@ -119,7 +119,7 @@ Running the code provides us with the following output:
 
 Turns out that the overflow occurs around the length of 900 A's.
 
-In Immunity we notice that the EIP has been overwritten with 41414141 (hexadecimal representation of four A's). It also says that an *Access violation* occurs while executing the code at address 41414141.
+In Immunity we notice that the EIP has been overwritten with 41414141 (ASCII representation of four A's). It also says that an *Access violation* occurs while executing the code at address 41414141.
 
 As the vulnerability is known and it's obvious that we've gained control over replacing the EIP address, it brings us closer to our goal.
 
@@ -154,7 +154,7 @@ After having the pattern located inside the instruction pointer (EIP), let's det
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/pattern-offset-ruby.png)
 
-Exactly 524 bytes of junk is needed to get us to the EIP.
+Exactly 524 bytes of junk data is needed to get us to the EIP.
 
 Now our payload will look like this: `"A"*524+"B"*4+"C"*(900-524-4)`
 
@@ -172,11 +172,11 @@ print s.recv(1024)
 
 s.close()
 ```
-After executing this script the EIP gets overwritten with 42424242
+After executing this script the EIP gets overwritten with 42424242 (the ASCII code of "B" is 0x42)
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/Access-violation-42424242.png)
 
-## 3. Setting JMP ESP address and shellcode
+## 3. Setting JMP ESP address
 
 `!mona jump -r ESP`
 
@@ -185,6 +185,8 @@ After executing this script the EIP gets overwritten with 42424242
 And we find the JMP ESP address
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/JMP-ESP-address.png)
+
+## 3. Shellcode payload and reverse shell
 
 * Brainpan's IP - 192.168.56.106
 * Attacker's IP - 192.168.56.101
@@ -227,6 +229,8 @@ It was really confusing at first. Notice the CMD 1.4.1 label? This is because th
 
 ...and swap the shellcode in our python script after setting up the netcat once again.
 
+## 4. Privilege escalation
+
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/netcat-and-python-shell.png)
 
 Good, we're back in the game!
@@ -238,10 +242,14 @@ Good, we're back in the game!
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/ls-la-sudoers.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sudo-home-anansi-bin-anansi-util.png)
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sudo-home-anansi-bin-anansi-util-etc-sudoers.png)
- And finally!
+`!/bin/bash`
+And finally!
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/root%40brainpan.png)
 
-## Conclusion and benefits
-It was an opportunity to improve
-- scripting skills
-- 
+## Conclusion
+It is a great opportunity to improve:
+- understanding of buffer overflow
+- scripting skills,
+- fundamentals of Immunity Debugger,
+
+Thank you for reading :)
