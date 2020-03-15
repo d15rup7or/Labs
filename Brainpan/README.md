@@ -93,7 +93,7 @@ We are gonna give it a try:
 
 It looks useless. I also used telnet but still nothing, the application responded with the following: Connection closed by foreign host.
 
-The app behaves as if it were a kind of a server. After opening the socket it waits for connection, checks the input and then closes.
+The app behaves as if it were a kind of a server. After opening the socket it waits for connection, checks the input and then drops.
 
 ## 2. Some scripting & fuzzing 
 
@@ -150,7 +150,7 @@ Execution of the script causes *Access violation* again and leads to crash:
 
 As you can see above, the pattern inside the EIP is **35724134**
 
-After having the pattern located inside the instruction pointer (EIP), let's determine the offset (known as the exact location of the address) and make it point to our malicious shellcode.
+After having the pattern located inside the instruction pointer (EIP), let's determine the offset (known as the exact location of the address) and make it point to our malicious shellcode, which we will craft later on.
 
 `ruby pattern_offset.rb -q 35724134`
 
@@ -181,6 +181,8 @@ After executing this script the EIP gets overwritten with 42424242 (the ASCII co
 Setting JMP ESP address
 
 `!mona jump -r ESP`
+
+Quick glance and we see something helpful:
 
 `0x31170000` <- module with no SafeSEH and ASLR protection
 
@@ -232,17 +234,21 @@ It was really confusing at first. Notice the CMD 1.4.1 label? This is because th
 ...and swap the shellcode in our python script after setting up the netcat once again.
 
 ## 5. Privilege escalation
-
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/netcat-and-python-shell.png)
 
 Good, we're back in the game!
+Spawning a tty shell -> check `id` -> list the directory `ls -la` -> `cat checksrv.sh` -> and check the local users
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/further-enumeration-shell.png)
-
+`cat group` -> `ls` -> `cd /opt` -> `cd /etc`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-group.png)
+`cat passwd`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/cat-passwd.png)
+`ls -la sudoers`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/ls-la-sudoers.png)
+`sudo /home/anansi/bin/anasi_util`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sudo-home-anansi-bin-anansi-util.png)
+`sudo /home/anansi/bin/anasi_util manual /etc/sudoers`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan/img/sudo-home-anansi-bin-anansi-util-etc-sudoers.png)
 `!/bin/bash`
 And finally!
