@@ -66,12 +66,12 @@ IP ID Sequence Generation: All zeros
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan%3A%201/img/welcome-to-brainpan.png)
 
-`nikto -h 192.168.56.106`
-
 * custom application running in Wine on port 9999
 * python SimpleHTTPServer on port 10000
 
 **Nikto** might be helpful at this moment
+
+`nikto -h 192.168.56.106`
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan%3A%201/img/nikto-scan-output.png)
 
