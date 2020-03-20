@@ -38,4 +38,4 @@ Running nikto scan reveals that the website hosted at this IP is powered by Word
 
 From now on, we're gonna stick to the previously detected Wordpress content, as it always is a good idea not to neglect it :-)
 
-
+`wpscan --url 192.168.56.109 --enumerate vp`
