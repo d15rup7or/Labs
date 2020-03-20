@@ -12,11 +12,13 @@ Let's begin with utilizing the network mapper to audit and discover open ports<b
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Mr%20Robot/img/nmap-output.png)
 
-I'm dying to see what awaits us there
+## 2. Webserver
+
+In this step we'll be making use of the information gathered in the reconnaissance phase. I'm dying to see what awaits us in the web browser
 
 `firefox 192.168.56.109`
 
-We strike on a web server with an uncanny webpage, thematically based on the famous TV series
+We strike on a web server with an uncanny webpage, thematically based on the well-known blockbuster TV series
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Mr%20Robot/img/192.168.56.109.png)
 
@@ -28,6 +30,10 @@ Actually, both of the files look very useful! Judging by the name, one of them m
 
 Apparently, we were right
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Mr%20Robot/img/key-1-of-3.txt.png)
+Looks like an MD5 hash
+
+Simultaneously, we download the .dic file and look inside it. It purely is a wordlist, though some words are repeating
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Mr%20Robot/img/fsocity.dic.png)
 
 How about further enumeration? ;-) <br>
 `nikto -h 192.168.56.109`
@@ -39,3 +45,5 @@ Running nikto scan reveals that the website hosted at this IP is powered by Word
 From now on, we're gonna stick to the previously detected Wordpress content, as it always is a good idea not to neglect it :-)
 
 `wpscan --url 192.168.56.109 --enumerate vp`
+
+
