@@ -9,7 +9,7 @@ Nmap reveals to us three services running on this machine:
 * SSH (22/TCP)
 * HTTP (80/TCP)
 
-Having the SSH version, there is not much information to gather. 
+Having the SSH version, there is not much more information to gather. 
 
 ## 2. 
 
