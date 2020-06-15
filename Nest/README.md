@@ -86,5 +86,7 @@ Path to the 2nd interesting file **Data/IT/Configs/NotepadPlusPlus/config.xml**
 Secure share looks tempting. Wonder whether we can access anything inside it?
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/smbclient-listing-secure.png)
 
-We weren't allowed to list `IT`, though there was no problem with listing `IT\Carl\` directory. The quick decision is to recursively download its content. According to what we saw, in `WIP` directory there is some source code written in Visual Basic.
+We weren't allowed to list `IT`, though there was no problem with listing `IT\Carl\` directory. The quick decision is to recursively download its content. 
+
+Moreover, inside there's this `WIP` directory containing some source code in Visual Basic. Turns out `Module1.vb` uses `Utils.vb`
 
