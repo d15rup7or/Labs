@@ -90,7 +90,7 @@ We weren't allowed to list `IT`, though there was no problem with listing `IT\Ca
 
 Moreover, a careful eye can spot the `WIP` directory, which contains some Visual Basic source code. Turns out `Module1.vb` utilizes `Utils.vb` to decrypt a password it gets from `RU_config.xml`
 
-We can connect the pieces of code and run it in an online compiler. Seems like ![dotnedfiddle.net](dotnedfiddle.net) will do the job.
+We can connect the pieces of code and run it in an online compiler. Seems like ![dotnedfiddle.net](http://www.dotnedfiddle.net) will do the job.
 
 We're gonna need the following part from  `Utils.vb`
 ```code
