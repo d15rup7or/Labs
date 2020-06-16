@@ -90,7 +90,7 @@ We weren't allowed to list `IT`, though there was no problem with listing `IT\Ca
 
 Moreover, a careful eye can spot the `WIP` directory, which contains some Visual Basic source code. Turns out `Module1.vb` utilizes `Utils.vb` to decrypt a password it gets from `RU_config.xml`
 
-We can connect the pieces of code and run it in an online compiler. Seems like ![dotnedfiddle.net](https://dotnedfiddle.net) will do the job.
+We can connect the pieces of code and run it in an online compiler. Seems like **dotnedfiddle.net** will do the job.
 
 We're gonna need the following part from  `Utils.vb`
 ```code
@@ -187,7 +187,7 @@ Public Class Utils
         plainText = Encoding.ASCII.GetString(plainTextBytes, _
                                             0, _
                                             decryptedByteCount)
-        System.Console.WriteLine(plainText)                             `THIS PART IS CRUCIAL FOR WRITING THE OUTPUT (DECRYPTED STRING)
+        System.Console.WriteLine(plainText)                             ' THIS PART IS CRUCIAL FOR WRITING THE OUTPUT (DECRYPTED STRING)
         Return plainText
     End Function
 
