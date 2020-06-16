@@ -98,7 +98,7 @@ Imports System.Text
 Imports System.Security.Cryptography
 Public Class Utils
 
-` This is the beginning of the *Public Class ConfigFile*
+' This is the beginning of the *Public Class ConfigFile*
 
       Public Class ConfigFile
             Public Property Port As Integer
@@ -122,7 +122,7 @@ Public Class Utils
             
       End Class
      
-` This is the end of the *Public Class ConfigFile*
+' This is the end of the *Public Class ConfigFile*
 
         Public Shared Function DecryptString(EncryptedString As String) As String
             If String.IsNullOrEmpty(EncryptedString) Then
@@ -132,7 +132,7 @@ Public Class Utils
            End If
        End Function
 
-` Here we cut the Public Shared Function Encrypt 'cause we don't need it anymore
+' Here we cut the Public Shared Function Encrypt 'cause we don't need it anymore
 
     Public Shared Function Decrypt(ByVal cipherText As String, _
                                    ByVal passPhrase As String, _
@@ -191,22 +191,22 @@ Public Class Utils
         Return plainText
     End Function
 
-` This is the beginning of the Public Class SsoIntegration
+' This is the beginning of the Public Class SsoIntegration
 
 Public Class SsoIntegration
     Public Property Username As String
     Public Property Password As String
 End Class
 
-` This is the end of the Public Class SsoIntegration
+' This is the end of the Public Class SsoIntegration
 
-` This is the beginning of the part from Module1.vb
+' This is the beginning of the part from Module1.vb
 
     Sub Main()
                 Dim test As New SsoIntegration With {.Username = Config.Username, .Password = Utils.DecryptString("PUT THE STRING FROM RU_Config.xml HERE")}
     End Sub
     
-` This is the end of the part from Module1.vb
+' This is the end of the part from Module1.vb
 
 End Class
 ```
