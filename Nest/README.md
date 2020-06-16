@@ -107,14 +107,14 @@ Public Class Utils
     
             Public Sub SaveToFile(Path As String)
                 Using File As New IO.FileStream(Path, System.IO.FileMode.Create)
-                    Dim Writer As New           Xml.Serialization.XmlSerializer(GetType(ConfigFile))
+                    Dim Writer As New System.Xml.Serialization.XmlSerializer(GetType(ConfigFile))
                     Writer.Serialize(File, Me)
                 End Using
             End Sub
       
             Public Shared Function LoadFromFile(ByVal FilePath As String) As ConfigFile
                 Using File As New System.IO.FileStream(FilePath, System.IO.FileMode.Open)
-                    Dim Reader As New Xml.Serialization.XmlSerializer(GetType(ConfigFile))
+                    Dim Reader As New System.Xml.Serialization.XmlSerializer(GetType(ConfigFile))
                     Return DirectCast(Reader.Deserialize(File), ConfigFile)
                 End Using
             End Function
