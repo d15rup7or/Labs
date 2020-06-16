@@ -88,5 +88,129 @@ Secure share looks tempting. Wonder whether we can access anything inside it?
 
 We weren't allowed to list `IT`, though there was no problem with listing `IT\Carl\` directory. The quick decision is to recursively download its content. 
 
-Moreover, inside there's this `WIP` directory containing some source code in Visual Basic. Turns out `Module1.vb` uses `Utils.vb`
+Moreover, a careful eye can spot the `WIP` directory, which contains some Visual Basic source code. Turns out `Module1.vb` utilizes `Utils.vb` to decrypt a password it gets from `RU_config.xml`
 
+We can connect the pieces of code and run it in an online compiler. Seems like ![dotnedfiddle.net](dotnedfiddle.net) will do the job.
+
+We're gonna need the following part from  `Utils.vb`
+```code
+Imports System.Text
+Imports System.Security.Cryptography
+Public Class Utils
+
+`This is the beginning of the *Public Class ConfigFile*
+      Public Class ConfigFile
+            Public Property Port As Integer
+            Public Property Username As String
+            Public Property Password As String
+    
+            Public Sub SaveToFile(Path As String)
+                Using File As New IO.FileStream(Path, IO.FileMode.Create)
+                    Dim Writer As New           Xml.Serialization.XmlSerializer(GetType(ConfigFile))
+                    Writer.Serialize(File, Me)
+                End Using
+            End Sub
+      
+            Public Shared Function LoadFromFile(ByVal, FilePath As String) As ConfigFile
+                Using File As New IO.FileStream(FilePath, IO.FileMode.Open)
+                    Dim Reader As New Xml.Serialization.XmlSerializer(GetType(ConfigFile))
+                    Return DirectCast(Reader.Deserialize(File), ConfigFile)
+                End Using
+            EndFunction
+            
+            
+      End Class
+     
+`This is the end of the **Public Class ConfigFile**
+          
+      
+    
+    
+    
+    
+    
+`    Public Shared Function GetLogFilePath() As String
+`            Return IO.Path.Combine(Environment.CurrentDirectory, "Log.txt")
+`        End Function
+
+
+
+
+        Public Shared Function DecryptString(EncryptedString As String) As String
+            If String.IsNullOrEmpty(EncryptedString) Then
+            Return String.Empty
+            Else
+               Return Decrypt(EncryptedString, "N3st22", "88552299", 2, "464R5DFA5DL6LE28", 256)
+           End If
+       End Function
+
+` Here we cut the Public Shared Function Encrypt beacuse we don't need it
+
+    Public Shared Function Decrypt(ByVal cipherText As String, _
+                                   ByVal passPhrase As String, _
+                                   ByVal saltValue As String, _
+                                    ByVal passwordIterations As Integer, _
+                                   ByVal initVector As String, _
+                                   ByVal keySize As Integer) _
+                           As String
+
+        Dim initVectorBytes As Byte()
+        initVectorBytes = Encoding.ASCII.GetBytes(initVector)
+
+        Dim saltValueBytes As Byte()
+        saltValueBytes = Encoding.ASCII.GetBytes(saltValue)
+
+        Dim cipherTextBytes As Byte()
+        cipherTextBytes = Convert.FromBase64String(cipherText)
+
+        Dim password As New Rfc2898DeriveBytes(passPhrase, _
+                                           saltValueBytes, _
+                                           passwordIterations)
+
+        Dim keyBytes As Byte()
+        keyBytes = password.GetBytes(CInt(keySize / 8))
+
+        Dim symmetricKey As New AesCryptoServiceProvider
+        symmetricKey.Mode = CipherMode.CBC
+
+        Dim decryptor As ICryptoTransform
+        decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes)
+
+        Dim memoryStream As IO.MemoryStream
+        memoryStream = New IO.MemoryStream(cipherTextBytes)
+
+        Dim cryptoStream As CryptoStream
+        cryptoStream = New CryptoStream(memoryStream, _
+                                        decryptor, _
+                                        CryptoStreamMode.Read)
+
+        Dim plainTextBytes As Byte()
+        ReDim plainTextBytes(cipherTextBytes.Length)
+
+        Dim decryptedByteCount As Integer
+        decryptedByteCount = cryptoStream.Read(plainTextBytes, _
+                                               0, _
+                                               plainTextBytes.Length)
+
+        memoryStream.Close()
+        cryptoStream.Close()
+
+        Dim plainText As String
+        plainText = Encoding.ASCII.GetString(plainTextBytes, _
+                                            0, _
+                                            decryptedByteCount)
+
+        Return plainText
+    End Function
+    
+Public Class SsoIntegration
+    Public Property Username As String
+    Public Property Password As String
+End Class
+
+    Sub Main()
+                Dim test As New SsoIntegration With {.Username = Config.Username, .Password = Utils.DecryptString("PUT THE STRING FROM RU_Config.xml HERE")}
+    End Sub
+End Class
+    
+```
