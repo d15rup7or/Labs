@@ -106,18 +106,18 @@ Public Class Utils
             Public Property Password As String
     
             Public Sub SaveToFile(Path As String)
-                Using File As New IO.FileStream(Path, IO.FileMode.Create)
+                Using File As New IO.FileStream(Path, System.IO.FileMode.Create)
                     Dim Writer As New           Xml.Serialization.XmlSerializer(GetType(ConfigFile))
                     Writer.Serialize(File, Me)
                 End Using
             End Sub
       
-            Public Shared Function LoadFromFile(ByVal, FilePath As String) As ConfigFile
-                Using File As New IO.FileStream(FilePath, IO.FileMode.Open)
+            Public Shared Function LoadFromFile(ByVal FilePath As String) As ConfigFile
+                Using File As New System.IO.FileStream(FilePath, System.IO.FileMode.Open)
                     Dim Reader As New Xml.Serialization.XmlSerializer(GetType(ConfigFile))
                     Return DirectCast(Reader.Deserialize(File), ConfigFile)
                 End Using
-            EndFunction
+            End Function
             
             
       End Class
@@ -149,7 +149,7 @@ Public Class Utils
         saltValueBytes = Encoding.ASCII.GetBytes(saltValue)
 
         Dim cipherTextBytes As Byte()
-        cipherTextBytes = Convert.FromBase64String(cipherText)
+        cipherTextBytes = System.Convert.FromBase64String(cipherText)
 
         Dim password As New Rfc2898DeriveBytes(passPhrase, _
                                            saltValueBytes, _
@@ -164,8 +164,8 @@ Public Class Utils
         Dim decryptor As ICryptoTransform
         decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes)
 
-        Dim memoryStream As IO.MemoryStream
-        memoryStream = New IO.MemoryStream(cipherTextBytes)
+        Dim memoryStream As System.IO.MemoryStream
+        memoryStream = New System.IO.MemoryStream(cipherTextBytes)
 
         Dim cryptoStream As CryptoStream
         cryptoStream = New CryptoStream(memoryStream, _
@@ -203,7 +203,7 @@ End Class
 ' This is the beginning of the part from Module1.vb
 
     Sub Main()
-                Dim test As New SsoIntegration With {.Username = Config.Username, .Password = Utils.DecryptString("PUT THE STRING FROM RU_Config.xml HERE")}
+                Dim test As New SsoIntegration With {.Username = "C.Smith", .Password = Utils.DecryptString("PUT THE STRING FROM RU_Config.xml HERE")}
     End Sub
     
 ' This is the end of the part from Module1.vb
