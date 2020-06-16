@@ -106,7 +106,7 @@ Public Class Utils
             Public Property Password As String
     
             Public Sub SaveToFile(Path As String)
-                Using File As New IO.FileStream(Path, System.IO.FileMode.Create)
+                Using File As New System.IO.FileStream(Path, System.IO.FileMode.Create)
                     Dim Writer As New System.Xml.Serialization.XmlSerializer(GetType(ConfigFile))
                     Writer.Serialize(File, Me)
                 End Using
