@@ -3,7 +3,7 @@ In the following walkthrough, we're gonna have a closer look at a chosen machine
 
 ## Initial Scan
 Let us kick things off with a preliminary scan
-```
+```console
 $ sudo nmap -sV -Pn -A -T4 -v -p- 10.10.10.178
 ```
 > an unprivileged Nmap scan will use the TCP Connect scan (-sT), whereas a privileged one will use TCP Syn Stealth (-sS)
@@ -52,13 +52,13 @@ $ smbclient \\\\10.10.10.178\\Data
 Basically, what should immediately strike our attention here are two files. Their names are `Maintenance Alerts.txt` & `Welcome Email.txt` respectively. Let's retrieve them with `smbclient`. \
 Firstly, we exit the smbclient `smb: \> exit` \
 Then, we create a directory labeled Data as a destination for our files
-```
+```console
 $ mkdir Data
 ```
-```
+```console
 $ cd Data
 ```
-```
+```console
 $ smbclient \\\\10.10.10.178\\Data
 ```
 `smb: \> recurse` \
@@ -93,7 +93,7 @@ Moreover, a careful eye can spot the `WIP` directory, which contains some Visual
 We can connect the pieces of code and run it in an online compiler. Seems like **dotnedfiddle.net** will do the job.
 
 We're gonna need the following part from  `Utils.vb`
-```code
+```vbscript
 Imports System.Text
 Imports System.Security.Cryptography
 Public Class Utils
@@ -210,3 +210,17 @@ End Class
 
 End Class
 ```
+Finally we decrypted the password for C.Smith user `xRxRxPANCAK3SxRxRx` 
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/dotnetfiddle-output.png)
+
+In order to retrieve user flag
+```console
+smb: \C.Smith\> get user.txt
+getting  file \C.Smith\user.txt of size 32 as user.txt (0.1 KiloBytes/sec) (average 0.1 KiloBytes/sec)
+```
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/user-flag.png)
+
+## Enumeration as C.Smith
+
+
+
