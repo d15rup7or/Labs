@@ -98,7 +98,8 @@ Imports System.Text
 Imports System.Security.Cryptography
 Public Class Utils
 
-`This is the beginning of the *Public Class ConfigFile*
+` This is the beginning of the *Public Class ConfigFile*
+
       Public Class ConfigFile
             Public Property Port As Integer
             Public Property Username As String
@@ -121,20 +122,7 @@ Public Class Utils
             
       End Class
      
-`This is the end of the **Public Class ConfigFile**
-          
-      
-    
-    
-    
-    
-    
-`    Public Shared Function GetLogFilePath() As String
-`            Return IO.Path.Combine(Environment.CurrentDirectory, "Log.txt")
-`        End Function
-
-
-
+` This is the end of the *Public Class ConfigFile*
 
         Public Shared Function DecryptString(EncryptedString As String) As String
             If String.IsNullOrEmpty(EncryptedString) Then
@@ -144,7 +132,7 @@ Public Class Utils
            End If
        End Function
 
-` Here we cut the Public Shared Function Encrypt beacuse we don't need it
+` Here we cut the Public Shared Function Encrypt 'cause we don't need it anymore
 
     Public Shared Function Decrypt(ByVal cipherText As String, _
                                    ByVal passPhrase As String, _
@@ -199,18 +187,27 @@ Public Class Utils
         plainText = Encoding.ASCII.GetString(plainTextBytes, _
                                             0, _
                                             decryptedByteCount)
-
+        System.Console.WriteLine(plainText)                             `THIS PART IS CRUCIAL FOR WRITING THE OUTPUT (DECRYPTED STRING)
         Return plainText
     End Function
-    
+
+` This is the beginning of the Public Class SsoIntegration
+
 Public Class SsoIntegration
     Public Property Username As String
     Public Property Password As String
 End Class
 
+` This is the end of the Public Class SsoIntegration
+
+` This is the beginning of the part from Module1.vb
+
     Sub Main()
                 Dim test As New SsoIntegration With {.Username = Config.Username, .Password = Utils.DecryptString("PUT THE STRING FROM RU_Config.xml HERE")}
     End Sub
+    
+` This is the end of the part from Module1.vb
+
 End Class
     
 ```
