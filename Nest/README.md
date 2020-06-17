@@ -93,7 +93,7 @@ Moreover, a careful eye can spot the `WIP` directory, which contains some Visual
 We can connect the pieces of code and run it in an online compiler. Seems like **dotnedfiddle.net** will do the job.
 
 We're gonna need the following part from  `Utils.vb`
-```vbscript
+```vbnet
 Imports System.Text
 Imports System.Security.Cryptography
 Public Class Utils
@@ -210,7 +210,7 @@ End Class
 
 End Class
 ```
-Finally we decrypted the password for C.Smith user `xRxRxPANCAK3SxRxRx` 
+Finally we've got the C.Smith password decrypted for us. In plaintext it looks like this: `xRxRxPANCAK3SxRxRx` 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/dotnetfiddle-output.png)
 
 In order to retrieve user flag
@@ -220,7 +220,20 @@ getting  file \C.Smith\user.txt of size 32 as user.txt (0.1 KiloBytes/sec) (aver
 ```
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/user-flag.png)
 
-## Enumeration as C.Smith
+## Further enumeration (port 4386)
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/HQK-debug-mode.png)
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/debug-mode-enabled-additional-commands.png)
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/HQK-current-directory.png)
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/setdir-LDAP.png)
+
+Now let's download the LDAP tool
+`cd C.Smith` -> `ls` -> `cd "HQK Reporting"` -> `ls` -> `cd "AD Integration Module"` -> `dir` -> `get HqkLdap.exe`
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/get-HqkLdap.exe.png)
+
 
 
 
