@@ -237,6 +237,13 @@ $ smbclient \\\\10.10.10.178\\Users -U C.Smith
 `cd C.Smith` -> `ls` -> `cd "HQK Reporting"` -> `ls` -> `cd "AD Integration Module"` -> `dir` -> `get HqkLdap.exe`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/get-HqkLdap.exe.png)
 
+## Privilege escalation
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/smbclient-user-administrator.png)
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/get-root-txt.png)
+
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/root-flag.png)
 
 
 
