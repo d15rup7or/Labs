@@ -1,5 +1,5 @@
 # Synopsis
-In the following walkthrough, we're gonna have a closer look at a chosen machine from HackTheBox. For those of you, who are not familiar with the name yet, HTB is an advanced online platform for grinding your penetration testing skills and sharpening infosec capabilities. Getting user and root on the box will require us to perform various SMB & Windows enumeration. After doing it right, it becomes relatively easy to find the flag, which is the ultimate goal of this challenge.
+In the following walkthrough, we're gonna have a closer look at a chosen machine from HackTheBox. For those of you, who are not familiar with the name yet, HTB is an advanced online platform for grinding your penetration testing skills and sharpening infosec capabilities. Getting user and root on the box will require us to perform various SMB & Windows enumeration. After doing it right, we will find the flag, which is the ultimate goal of this challenge.
 
 ## Initial Scan
 Let us kick things off with a preliminary scan
@@ -245,5 +245,4 @@ $ smbclient \\\\10.10.10.178\\Users -U C.Smith
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/root-flag.png)
 
-
-
+Thank you for joining me
