@@ -231,6 +231,9 @@ getting  file \C.Smith\user.txt of size 32 as user.txt (0.1 KiloBytes/sec) (aver
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/setdir-LDAP.png)
 
 Now let's download the LDAP tool
+```bash
+$ smbclient \\\\10.10.10.178\\Users -U C.Smith
+```
 `cd C.Smith` -> `ls` -> `cd "HQK Reporting"` -> `ls` -> `cd "AD Integration Module"` -> `dir` -> `get HqkLdap.exe`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/get-HqkLdap.exe.png)
 
