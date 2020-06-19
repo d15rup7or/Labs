@@ -225,17 +225,31 @@ getting  file \C.Smith\user.txt of size 32 as user.txt (0.1 KiloBytes/sec) (aver
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/HQK-debug-mode.png)
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/debug-mode-enabled-additional-commands.png)
+Commands were quite easy to understand:
+
+LIST is similar to ls/dir
+SHOWQUERY shows the content of a file
+RUNQUERY basically executes/reads a chosen file
+SETDIR change directory (cd)
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/HQK-current-directory.png)
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/setdir-LDAP.png)
+Encrypted password was hidden in the .conf file
 
-Now let's download the LDAP tool
+Now let's download the HqkLdap binary
 ```bash
 $ smbclient \\\\10.10.10.178\\Users -U C.Smith
 ```
 `cd C.Smith` -> `ls` -> `cd "HQK Reporting"` -> `ls` -> `cd "AD Integration Module"` -> `dir` -> `get HqkLdap.exe`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/get-HqkLdap.exe.png)
+
+## Binary analysis
+
+Executing the .NET binary in the cmd, shows that we lack some important file
+![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Nest/img/smbclient-user-administrator.png)
+
+
 
 ## Privilege escalation
 
