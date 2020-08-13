@@ -4,7 +4,7 @@ Without further delay, let's start the party.
 
 ## 1. Initial Scan
 
-`nmap -sV -sT -v -p- -T4 192.168.56.1/24`
+`nmap -sV -sT -v -p- -T4 192.168.21.130`
 
 ```
 PORT      STATE SERVICE VERSION
