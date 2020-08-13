@@ -207,6 +207,13 @@ except:
 s.recv(1024)
 s.send(payload)
 ```
+Time for important question. Why the appearance of multiple `"\x90"` inside our payload variable?
+
+Finding the single entry point is a lot of work. **NOP "sleds"** make this easier by making it so that we only need to be close. How do we do this? By executing NOP (or equivalent) instructions.
+
+Just place a **"NOP sled"** in front of the shellcode and try to point the return address into the sled.
+
+0x90 is the op-code for no operation `"NOP"`. NOPs go on to the next operation, not causing anything to happen. They are used for so called trail padding, so if we jump to the memory location of any of them, they will just fast forward to our actual code.
 
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan%3A%201/img/nc-nlvp-4444.png)
