@@ -180,7 +180,7 @@ After executing this script the EIP gets overwritten with 42424242 (the HEX code
 
 Setting JMP ESP address
 
-`!mona jump -r ESP`
+`!mona jmp -r ESP`
 
 Quick glance and we see something helpful:
 
