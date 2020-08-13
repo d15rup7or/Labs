@@ -233,7 +233,7 @@ Good, we're back in the game!
 Spawning a tty shell -> check `id` -> list the directory `ls -la` -> `cat checksrv.sh` -> and check the local users
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan%3A%201/img/further-enumeration-shell.png)
-`cat group`
+`cd /etc` -> `cat group`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan%3A%201/img/cat-group.png)
 `cat passwd` -> `ls` -> `cd /opt` -> `cd /etc`
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan%3A%201/img/cat-passwd.png)
