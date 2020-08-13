@@ -119,7 +119,7 @@ Running the code provides us with the following output:
 
 Turns out that the overflow occurs around the length of 900 A's.
 
-In Immunity we notice that the EIP has been overwritten with 41414141 (ASCII representation of four A's). It also says that an *Access violation* occurs while executing the code at address 41414141.
+In Immunity we notice that the EIP has been overwritten with 41414141 (Hex representation of four A's). It also says that an *Access violation* occurs while executing the code at address 41414141.
 
 ## 3. Finding EIP location
 
@@ -174,7 +174,7 @@ print s.recv(1024)
 
 s.close()
 ```
-After executing this script the EIP gets overwritten with 42424242 (the ASCII code of "B" is 0x42)
+After executing this script the EIP gets overwritten with 42424242 (the HEX code of "B" is 0x42)
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan%3A%201/img/Access-violation-42424242.png)
 
