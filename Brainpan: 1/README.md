@@ -1,5 +1,6 @@
 # Brainpan 1 Walkthrough
-Following is the outcome of my hacking handiwork and obtaining root. Withour further delay, let's start the party.
+Following is the outcome of my adventure with Brainpan: 1 
+Without further delay, let's start the party.
 
 ## 1. Initial Scan
 
