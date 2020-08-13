@@ -141,7 +141,34 @@ Setting JMP ESP address
 
 `!mona jmp -r ESP`
 
-Quick glance and we see something helpful:
+Quick glance at the `jmp.txt` output file from mona and we see something helpful:
+```
+ Module info :
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Base       | Top        | Size       | Rebase | SafeSEH | ASLR  | NXCompat | OS Dll | Version, Modulename & Path
+-----------------------------------------------------------------------------------------------------------------------------------------
+ 0x750a0000 | 0x750aa000 | 0x0000a000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [LPK.dll] (C:\Windows\syswow64\LPK.dll)
+ 0x76bc0000 | 0x76bc6000 | 0x00006000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [NSI.dll] (C:\Windows\syswow64\NSI.dll)
+ 0x74fd0000 | 0x7509c000 | 0x000cc000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [MSCTF.dll] (C:\Windows\syswow64\MSCTF.dll)
+ 0x76f50000 | 0x76f96000 | 0x00046000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [KERNELBASE.dll] (C:\Windows\syswow64\KERNELBASE.dll)
+ 0x76fa0000 | 0x76fd5000 | 0x00035000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [WS2_32.DLL] (C:\Windows\syswow64\WS2_32.DLL)
+ 0x747b0000 | 0x747ec000 | 0x0003c000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [mswsock.dll] (C:\Windows\system32\mswsock.dll)
+ 0x750b0000 | 0x7514d000 | 0x0009d000 | True   | True    | True  |  True    | True   | 1.0626.7601.17514 [USP10.dll] (C:\Windows\syswow64\USP10.dll)
+ 0x76c00000 | 0x76c90000 | 0x00090000 | True   | True    | True  |  True    | True   | 6.1.7601.17514 [GDI32.dll] (C:\Windows\syswow64\GDI32.dll)
+ 0x31170000 | 0x31176000 | 0x00006000 | False  | False   | False |  False   | False  | -1.0- [brainpan.exe] (C:\Users\wojtek\Desktop\brainpan.exe)
+ 0x76a20000 | 0x76b30000 | 0x00110000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [kernel32.dll] (C:\Windows\syswow64\kernel32.dll)
+ 0x76ea0000 | 0x76f4c000 | 0x000ac000 | True   | True    | True  |  True    | True   | 7.0.7600.16385 [msvcrt.dll] (C:\Windows\syswow64\msvcrt.dll)
+ 0x74f30000 | 0x74f3c000 | 0x0000c000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [CRYPTBASE.dll] (C:\Windows\syswow64\CRYPTBASE.dll)
+ 0x74f40000 | 0x74fa0000 | 0x00060000 | True   | True    | True  |  True    | True   | 6.1.7601.17514 [SspiCli.dll] (C:\Windows\syswow64\SspiCli.dll)
+ 0x773e0000 | 0x77560000 | 0x00180000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [ntdll.dll] (C:\Windows\SysWOW64\ntdll.dll)
+ 0x759b0000 | 0x75a50000 | 0x000a0000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [ADVAPI32.dll] (C:\Windows\syswow64\ADVAPI32.dll)
+ 0x75160000 | 0x75250000 | 0x000f0000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [RPCRT4.dll] (C:\Windows\syswow64\RPCRT4.dll)
+ 0x75780000 | 0x75799000 | 0x00019000 | True   | True    | True  |  True    | True   | 6.1.7600.16385 [sechost.dll] (C:\Windows\SysWOW64\sechost.dll)
+ 0x75ae0000 | 0x75be0000 | 0x00100000 | True   | True    | True  |  True    | True   | 6.1.7601.17514 [user32.dll] (C:\Windows\syswow64\user32.dll)
+ 0x76b60000 | 0x76bc0000 | 0x00060000 | True   | True    | True  |  True    | True   | 6.1.7601.17514 [IMM32.DLL] (C:\Windows\system32\IMM32.DLL)
+-----------------------------------------------------------------------------------------------------------------------------------------
+0x311712f3 : jmp esp |  {PAGE_EXECUTE_READ} [brainpan.exe] ASLR: False, Rebase: False, SafeSEH: False, OS: False, v-1.0- (C:\Users\wojtek\Desktop\brainpan.exe)
+```
 
 `0x31170000` <- module with no SafeSEH and ASLR protection
 
