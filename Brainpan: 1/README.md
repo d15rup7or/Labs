@@ -133,7 +133,7 @@ print s.recv(1024)
 
 s.close()
 ```
-After executing this script the EIP gets overwritten with 42424242 (the HEX code of "B" is 0x42)
+As we could have expected, after executing this script the EIP gets overwritten with 42424242 (the HEX code of "B" is 0x42). Now we have full control over the EIP.
 
 ![](https://raw.githubusercontent.com/d15rup7or/Labs/master/Brainpan%3A%201/img/Access-violation-42424242.png)
 
